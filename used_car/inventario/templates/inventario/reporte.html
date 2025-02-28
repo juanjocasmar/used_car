@@ -1,0 +1,63 @@
+{% extends 'inventario/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mt-4">Reporte de Compras vs Ventas vs Utilidad</h2>
+
+    <!-- Tabla de Totales -->
+    <table class="table table-bordered mt-4">
+        <thead>
+            <tr>
+                <th>Total Compras (Vehículos Vendidos)</th>
+                <th>Total Ventas</th>
+                <th>Total Utilidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>${{ total_compras }}</td>
+                <td>${{ total_ventas }}</td>
+                <td>${{ total_utilidad }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Gráfico -->
+    <canvas id="reporteChart"></canvas>
+
+    <a href="{% url 'lista_vehiculos' %}" class="btn btn-primary mt-3">Regresar a Inicio</a>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('reporteChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Compras (Vendidos)', 'Ventas', 'Utilidad'],
+            datasets: [{
+                label: 'Monto en USD',
+                data: [{{ total_compras }}, {{ total_ventas }}, {{ total_utilidad }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(75, 192, 192, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>
+{% endblock %}

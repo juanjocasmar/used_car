@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Used Car</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    {% load static %}
+    <header class="d-flex align-items-center p-3 bg-light">
+        <img src="{% static 'inventario/img/Car Sales.png' %}" alt="JJCAST Used Car Sales" style="height: 100px; margin-right: 10px;">
+        <h3 class="m-0">JJCAST - Used Car Sales</h3>           
+    </header>
+    
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'lista_vehiculos' %}"></a>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

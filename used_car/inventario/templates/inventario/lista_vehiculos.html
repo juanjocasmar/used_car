@@ -1,0 +1,44 @@
+{% extends 'inventario/base.html' %}
+
+{% block content %}
+<h1>Lista de Vehículos</h1>
+
+<div class="d-flex justify-content-between mt-3"></div>
+    <a href="{% url 'registrar_vehiculo' %}" class="btn btn-success mb-3">Registrar Nuevo Vehículo</a> 
+    <a href="{% url 'reporte_ventas' %}" class="btn btn-success mb-3">Ver Reporte</a>
+
+<form method="GET" class="mb-3">
+    <input type="text" name="marca" placeholder="Filtrar por marca" class="form-control" value="{{ request.GET.marca }}">
+    <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+</form>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Año</th>
+            <th>Precio Compra</th>
+            <th>Precio Venta</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for vehiculo in vehiculos %}
+        <tr>
+            <td>{{ vehiculo.marca }}</td>
+            <td>{{ vehiculo.modelo }}</td>
+            <td>{{ vehiculo.anio }}</td>
+            <td>{{ vehiculo.precio_compra }}</td>
+            <td>{{ vehiculo.precio_venta }}</td>
+            <td>{{ vehiculo.estado }}</td>
+            <td>
+                {% if vehiculo.estado == 'Disponible' %}
+                    <a href="{% url 'cambiar_estado' vehiculo.id %}" class="btn btn-success btn-sm">Vender</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
